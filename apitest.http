@@ -1,0 +1,50 @@
+
+
+### REQUESTS FOR CUSTOMER ENDPOINTS ###
+GET http://localhost:3000/api/customers
+
+### 
+
+POST http://localhost:3000/api/customers
+
+### 
+GET http://localhost:3000/api/customers/3
+
+### 
+
+PUT http://localhost:3000/api/customers/3
+
+### 
+
+DELETE  http://localhost:3000/api/customers/3
+
+###
+
+### REQUESTS FOR ORDERS ENDPOINTS ###
+GET http://localhost:3000/api/orders
+
+### 
+
+POST http://localhost:3000/api/orders
+
+### 
+GET http://localhost:3000/api/orders/3
+
+### 
+
+PUT http://localhost:3000/api/orders/3
+
+### 
+
+DELETE  http://localhost:3000/api/orders/3
+
+### REQUESTS FOR PRODUCT ENDPOINTS ### 
+
+
+GET http://localhost:3000/api/products
+
+### 
+GET http://localhost:3000/api/products/3
+
+### 
+PUT http://localhost:3000/api/products/3
