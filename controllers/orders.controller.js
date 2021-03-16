@@ -1,19 +1,19 @@
 exports.getAllOrders = (req, res) => {
-    console.log("Hit orders.controller: getAllOrders()");
+    res.send("Hit orders.controller: getAllOrders()");
 }
 
 exports.createNewOrder = (req, res) => {
-    console.log("Hit orders.controller: createNewOrder()");
+    res.send("Hit orders.controller: createNewOrder()");
 }
 
 exports.getOrder = (req, res) => {
-    console.log("Hit orders.controller: getOrder()");
+    res.send("Hit orders.controller: getOrder()");
 }
 
 exports.modifyOrder = (req, res) => {
-    console.log("Hit orders.controller: modifyOrder()");
+    res.send("Hit orders.controller: modifyOrder()");
 }
 
 exports.deleteOrder = (req, res) => {
-    console.log("Hit orders.controller: deleteOrder()");
+    res.send("Hit orders.controller: deleteOrder()");
 }

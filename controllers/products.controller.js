@@ -1,11 +1,11 @@
 exports.getAllProducts = (req, res) => {
-    console.log("Hit products.controller: getAllProducts()");
+    res.send("Hit products.controller: getAllProducts()");
 }
 
 exports.getProduct = (req, res) => {
-    console.log("Hit products.controller: getProduct()");
+    res.send("Hit products.controller: getProduct()");
 }
 
 exports.modifyProduct = (req, res) => {
-    console.log("Hit products.controller: modifyProduct()");
+    res.send("Hit products.controller: modifyProduct()");
 }
