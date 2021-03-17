@@ -1,4 +1,5 @@
 const db = require("../models");
+const { sequelize } = require("../models");
 const Order = db.orders;
 const mySQLdatetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
@@ -54,10 +55,16 @@ exports.findAll = (req, res) => {
 
 // Delete an order from ID
 exports.deleteOrderById = (req, res) => {
-    const id = req.params.id;
-    //res.send("reached delete order by id");
-
-    Order.destroy({
+    const id = parseInt(req.params.id, 10);
+    if(Number.isNaN(id)) 
+    {
+        res.status(404).send({
+            message: "Invalid ID parameter."
+        });
+    }
+    
+    sequelize.query (`DELETE FROM order_products WHERE order_id = ${id}`);
+    return Order.destroy({
         where: { id: id }
     })
         .then(data => {
@@ -73,7 +80,7 @@ exports.deleteOrderById = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Unable to delete Order with id of " + id
+                message: "Error with deleting order: " + err
             });
         });
 };
