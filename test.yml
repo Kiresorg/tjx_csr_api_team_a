@@ -13,11 +13,11 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 
 # tags are used for organizing operations
-tags:
-- name: admins
-  description: Secured Admin-only calls
-- name: developers
-  description: Operations available to regular developers
+#tags:
+#- name: admins
+#  description: Secured Admin-only calls
+#- name: developers
+#  description: Operations available to regular developers
 
 paths:
   /products: 
@@ -83,7 +83,7 @@ paths:
       description: "Create new order draft, is not an 'active' order yet"
       operationId: createNewOrder
       parameters:
-      - name: id
+          id: string
           in: path
           description: order ID
           required: true
@@ -156,7 +156,7 @@ paths:
       summary: gets a customer by ID
       description: searches through the database
       and gets the customer matching the ID
-      operationId: getSpecificCustomer
+      operationId: getCustomer
       responses:
         200:
           description: OK
