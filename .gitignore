@@ -1,2 +1,2 @@
 # Ignore remote db config file
-.db.config.js
+db.config.js
