@@ -44,7 +44,9 @@ paths:
             format: int64 
         responses: 
           200:
-            decription: OK
+            description: OK
+          400:
+            description: Bad Request
           500:
             description: 'server error'
       put: 
@@ -71,7 +73,7 @@ paths:
     get:
       summary: get specific order
       description: "Get an order based on a customer ID"
-      operationId: 
+      operationId: getSpecificOrder
       parameters:
         - name: id
           in: path
@@ -82,6 +84,8 @@ paths:
       responses:
         200:
           description: OK
+        400: 
+          description: Bad Request
     put:
       summary: modify existing order
       description: 
@@ -96,6 +100,8 @@ paths:
       responses:
         200:
           description: OK
+        400: 
+          description: Bad Request
           
     delete:
       summary: delete draft order (not allowed for active orders)
@@ -110,6 +116,8 @@ paths:
       responses:
         200:
           description: OK
+        400:
+          description: Bad Request
        
   /orders:
     get:
@@ -132,6 +140,8 @@ paths:
       responses:
         200:
           description: OK
+        400:
+          description: Bad Request
 
   /customers:
     get: 
@@ -140,34 +150,44 @@ paths:
 
   /customers/{id}:
     get:
-      summary: 
-      description: 
+      summary: gets a customer by ID
+      description: searches through the database
+      and gets the customer matching the ID
+      operationId: getSpecificCustomer
       responses:
         200:
           description: OK
+        400:
+          description: Bad Request
     put:
-      summary: 
-      description: 
+      summary: update a customer
+      description: using a customerID, update a 
+      specific customer
+      operationId: updateSpecificCustomer
       responses:
         200:
           description: OK
+        400: Bad Request
     
     delete:
-      summary: 
-      description: 
+      summary: deletes a specific customer
+      description: using a customerID, deletes a
+      specific customer
+      operationId: deleteSpecificCustomer
       responses:
         200:
           description: OK
+        400:
+          description: Bad Request
     
   /customers:
     get:
       tags:
-      - developers
-      summary: searches for customer ID
-      operationId: searchInventory
+      - customers
+      summary: gets all customers from the database
+      operationId: getAllCustomers
       description: |
-        By passing in the appropriate options, you can search for
-        available inventory in the system
+        Gets all customers in the database
       produces:
       - application/json
       parameters:
@@ -195,32 +215,32 @@ paths:
           schema:
             type: array
             items:
-              $ref: '#/definitions/InventoryItem'
+              $ref: '#/definitions/Customer'
         400:
           description: bad input parameter
     post:
       tags:
       - admins
-      summary: adds an inventory item
-      operationId: addInventory
-      description: Adds an item to the system
+      summary: adds a customer 
+      operationId: addCustomer
+      description: Adds a customer to the database
       consumes:
       - application/json
       produces:
       - application/json
       parameters:
       - in: body
-        name: inventoryItem
-        description: Inventory item to add
+        name: customer
+        description: Customer info to add
         schema:
-          $ref: '#/definitions/InventoryItem'
+          $ref: '#/definitions/CustomerId'
       responses:
         201:
-          description: item created
+          description: customer added
         400:
-          description: invalid input, object invalid
+          description: invalid input, user invalid
         409:
-          description: an existing item already exists
+          description: an existing user already exists
 definitions:
   product:
     type: object
