@@ -1,18 +1,18 @@
-### Get all products
+###
+GET http://localhost:3000/api/products/7
 
-GET http://localhost:8080/api/products HTTP/1.1
-content-type: application/json
-
-### Get Specific product
-
-GET http://localhost:8080/api/products/1 HTTP/1.1
-content-type: application/json
-
-### increment/decrement product inventory with POST
-
-PUT http://localhost:8080/api/products/1 HTTP/1.1
+###
+PUT http://localhost:3000/api/products/7
 content-type: application/json
 
 {
+    "incrementOrDecrement": "true"
 }
 
+###
+PUT http://localhost:3000/api/products/7
+content-type: application/json
+
+{
+    "incrementOrDecrement": "false"
+}
