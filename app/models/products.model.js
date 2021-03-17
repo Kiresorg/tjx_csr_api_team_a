@@ -1,23 +1,32 @@
-const { INTEGER } = require("sequelize/types");
+const {Sequelize, DataTypes} = require('sequelize');
 
-module.exports = mongoose => {
-    var schema = mongoose.Schema(
+module.exports = (sequelize, Sequelize) => {
+    var Product = sequelize.define('product',
         {
-            SKU: String,
-            unit_price: String,
-            name: String,
-            quantity: INTEGER,
-            description: String
+            sku: {
+                type: DataTypes.STRING,
+                allowNull: false
+            },
+            unit_price: {
+                type:DataTypes.DECIMAL,
+                allowNull: false
+            },
+            name: {
+                type:DataTypes.STRING,
+                allowNull: false
+            },
+            quantity: {
+                type:DataTypes.INTEGER,
+                allowNull: false
+            },
+            description: {
+                type:DataTypes.STRING,
+                allowNull: true
+            },
         },
         { timestamps: false }
     );
-    
-    schema.method("toJSON", function() {
-        const { __v, _id, ...object } = this.toObject();
-        object._id = _id;
-        return object;
-    });
-    
-    const Product = mongoose.model("product", schema);
+
     return Product;
 };
+
