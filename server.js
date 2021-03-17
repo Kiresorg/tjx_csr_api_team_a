@@ -6,6 +6,9 @@ var passport    = require('passport');
 var session     = require('express-session');
 var bodyParser  = require('body-parser');
 
+require("./app/routers/customers.route")(app);
+require("./app/routers/orders.route")(app);
+
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -16,9 +19,6 @@ app.use((req, res, next) => {
     );
     next();
 });
-
-require("./app/routers/customers.route")(app);
-require("./app/routers/orders.route")(app);
 
 //Initialize BodyParser (to be used with password encryption)
 app.use(bodyParser.urlencoded({ extended: true }));
