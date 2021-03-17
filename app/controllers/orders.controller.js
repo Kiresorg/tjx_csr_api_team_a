@@ -1,6 +1,8 @@
 const db = require("../models");
 const { sequelize } = require("../models");
 const Order = db.orders;
+const Order_Product = db.order_products;
+
 const mySQLdatetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
 // create an order
@@ -60,8 +62,15 @@ exports.deleteOrderById = (req, res) => {
         });
     }
     
-    sequelize.query (`DELETE FROM order_products WHERE order_id = ${id}`);
-    return Order.destroy({
+    //sequelize.query (`DELETE FROM order_products WHERE order_id = ${id}`);
+    Order_Product.destroy({
+        where: { order_id: id }
+    }).catch(err => {
+        res.status(500).send({
+            message: "Error with deleting order_product."
+        });
+    });
+    Order.destroy({
         where: { id: id }
     })
         .then(data => {
@@ -122,7 +131,7 @@ exports.editOrderById = (req, res) => {
             if (!data)
                 res.status(404).send({ message: "Not found: Order with id of " + id });
             else
-                res.send(data);
+                res.send({message:"Order updated successfully."});
         })
         .catch(err => {
             res
