@@ -23,8 +23,8 @@ app.use('/', function(req, res) {
     res.send('tjx_full_stack works :-)');
 });
 
-//const db = require("./models");
-//db.sequelize.sync();
+const db = require("./app/models");
+db.sequelize.sync();
 
 //const server = http.createServer(app);
 const port = process.env.PORT || 3000;
