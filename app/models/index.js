@@ -1,6 +1,7 @@
 const dbConfig = require("../config/db.config.js");
-
 const Sequelize = require("sequelize");
+
+
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
   host: dbConfig.HOST,
   dialect: dbConfig.dialect,
@@ -21,6 +22,5 @@ db.sequelize = sequelize;
 //db.orders = require("./orders.model.js")(sequelize,Sequelize);
 db.customer = require("./customers.model.js")(sequelize,Sequelize);
 //db.products = require("./products.model.js")(sequelize,Sequelize);
-
 
 module.exports = db;
