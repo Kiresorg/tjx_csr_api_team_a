@@ -6,6 +6,13 @@ app.get('/', (req, res) => {
   res.send('Hello World!')
 })
 
-app.listen(port, () => {
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
+
+// set up Router
+require("./routes/customers.routes")(app);
+require("./routes/orders.routes")(app);
+require("./routes/products.routes")(app);
