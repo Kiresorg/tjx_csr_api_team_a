@@ -6,16 +6,13 @@ const mySQLdatetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
 // create an order
 exports.createOrder = (req, res) => {
 
-    // Testing
-    // res.send("reached create new order")
-
-    // // create Order
+    // create Order
     const order = new Order({
         customer_id: req.body.customer_id,
         order_status_id: req.body.order_status_code,
         datetime_order_placed: mySQLdatetime,
         total_order_price: req.body.total_order_price,
-        notes: req.body.order_notes ? req.body.order_notes : '',
+        notes: req.body.notes ? req.body.notes : '',
     });
 
 
@@ -80,7 +77,7 @@ exports.deleteOrderById = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error with deleting order: " + err
+                message: "Error with deleting order."
             });
         });
 };

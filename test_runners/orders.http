@@ -26,8 +26,8 @@ content-type: application/json
     "customer_id": "2",
     "order_status_code": "100",
     "datetime_order_placed": "2021-03-17T15:18:06.000Z",
-    "total_order_price": "Number",
-    "notes": "String"
+    "total_order_price": "99.99",
+    "notes": "Hello there"
 }
 
 ### Delete an order by ID
