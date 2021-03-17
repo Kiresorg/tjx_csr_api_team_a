@@ -2,7 +2,7 @@
  module.exports = {
   HOST: "csr-db-team-a.mysql.database.azure.com",
   USER: "teamaadmin@csr-db-team-a",
-  PASSWORD: "engcohort2021",
+  PASSWORD: "engcohort2021!",
   DB: "ordersdb",
   dialect: "mysql",
   pool: {
