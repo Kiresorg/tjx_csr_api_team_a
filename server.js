@@ -25,8 +25,10 @@ app.use('/', function(req, res) {
 //const db = require("./models");
 //db.sequelize.sync();
 
-const server = http.createServer(app);
-const port = 3000;
-server.listen(port);
+//const server = http.createServer(app);
+const port = process.env.PORT || 3000;
+app.listen(port,() =>{
+  console.log(`listening on ` + port);
+})
 
 console.debug('Server listening on port ' + port);
