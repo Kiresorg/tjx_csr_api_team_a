@@ -1,15 +1,21 @@
 {
-  "name": "team-a-backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "express": "^4.17.1"
-  }
+    "name": "tjx_csr_api_team_b",
+    "version": "1.0.0",
+    "scripts": {
+        "start": "node server.js"
+    },
+    "dependencies": {
+        "bcrypt-node": "^0.1.0",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "express-handlebars": "^5.2.1",
+        "express-session": "^1.17.1",
+        "mysql": "^2.18.1",
+        "mysql2": "^2.2.5",
+        "passport": "^0.4.1",
+        "passport-local": "^1.0.0",
+        "sequelize": "^6.5.0",
+        "sequelize-cli": "^6.2.0"
+    },
+    "description": "Full Stack App for TJX"
 }
