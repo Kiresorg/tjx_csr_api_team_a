@@ -30,7 +30,7 @@ app.use(passport.initialize());
 app.use(passport.session()); //persistent login sessions
 
 // Load passport strategies
-require('./config/passport/passport.js')(passport, models.user);
+require('./app/config/passport/passport.js')(passport, models.user);
 
 // default URL to API
 app.use('/', function(req, res) {
