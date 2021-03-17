@@ -7,15 +7,14 @@ exports.create = (req, res) => {
     //res.send("reached create new customer")
     // create customer
     const customer = new Customer({
-        first_name: req.body.first_name ? req.body.first_name : '',
-        middle_name: req.body.middle_name ? req.body.middle_name : '',
-        last_name: req.body.last_name ? req.body.last_name : '',
-        phone: req.body.phone ? req.body.phone : '',
-        email: req.body.email ? req.body.email : '',
+        first_name: req.body.first_name,
+        middle_name: req.body.middle_name ? req.body.middle_name : null,
+        last_name: req.body.last_name,
+        phone: req.body.phone,
+        email: req.body.email, 
         notes: req.body.notes ? req.body.notes : null,
         address_line1: req.body.address_line1 ? req.body.address_line1 : '',
         address_line2: req.body.address_line2 ? req.body.address_line2 : '',
-        apartment_number: req.body.apartment_number ? req.body.apartment_number : '',
         city: req.body.city ? req.body.city : '',
         state: req.body.state ? req.body.state : '',
         zip: req.body.zip ? req.body.zip : '',

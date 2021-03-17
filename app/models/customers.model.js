@@ -35,10 +35,6 @@ module.exports = (sequelize, Sequelize) => {
                 type:DataTypes.STRING,
                 allowNull: true
             },
-            apartment_number: {
-                type:DataTypes.STRING,
-                allowNull: true
-            },
             city: {
                 type:DataTypes.STRING,
                 allowNull: false
