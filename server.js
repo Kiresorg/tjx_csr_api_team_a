@@ -1,7 +1,7 @@
 const app       = express();
 const http      = require('http');
 const express   = require('express');
-var models      = require('./app/models');
+const db        = require('./app/models');
 var passport    = require('passport');
 var session     = require('express-session');
 var bodyParser  = require('body-parser');
@@ -30,22 +30,19 @@ app.use(passport.initialize());
 app.use(passport.session()); //persistent login sessions
 
 // Load passport strategies
-require('./config/passport/passport.js')(passport, models.user);
-
-//Sync Database
-models.sequelize.sync().then(function() {
-  console.log('Nice! Database looks fine')
-}).catch(function(err) {
-  console.log(err, "Something went wrong with the Database Update!")
-});
+require('./app/config/passport/passport.js')(passport, models.user);
 
 // default URL to API
 app.use('/', function(req, res) {
     res.send('tjx_full_stack works :-)');
 });
 
-const db = require("./app/models");
-db.sequelize.sync();
+//Syncing database on server start
+db.sequelize.sync().then(function() {
+  console.log('Nice! Database looks fine')
+}).catch(function(err) {
+  console.log(err, "Something went wrong with the Database Update!")
+});
 
 //const server = http.createServer(app);
 const port = process.env.PORT || 3000;
