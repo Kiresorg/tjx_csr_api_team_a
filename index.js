@@ -9,3 +9,9 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
+
+
+// set up Router
+require("./routes/customers.routes")(app);
+require("./routes/orders.routes")(app);
+require("./routes/products.routes")(app);
