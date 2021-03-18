@@ -138,26 +138,13 @@ exports.editOrderById = (req, res) => {
         return;
     }
 
-    Order.update(
-        {
-            customer_id: req.body.customer_id,
-            order_status_id: req.body.order_status_id,
-            datetime_order_placed: req.body.datetime_order_placed,
-            total_order_price: req.body.total_order_price,
-            notes: req.body.notes
-        },
-        {
-            where: { id: id }
-        })
-        .then(data => {
-            if (!data)
-                res.status(404).send({ message: "Not found: Order with id of " + id });
-            else
-                res.send({ message: "Order updated successfully." });
-        })
-        .catch(err => {
+    sequelize.query
+        (`CALL UpdateOrder(${id}, ${req.body.customer_id}, ${req.body.order_status_id}, "${req.body.datetime_order_placed}", ${req.body.total_order_price}, "${req.body.notes}");`)
+        .then(function(response){
+            res.send({message: "Procedure successfully completed." });
+        }).catch(err => {
             res
                 .status(500)
-                .send({ message: "Error updating Order with id of " + id });
+                .send({ message: "Error updating Order with id of " + id + ": " + err });
         })
 };
