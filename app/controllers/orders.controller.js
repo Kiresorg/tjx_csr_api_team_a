@@ -7,6 +7,15 @@ const mySQLdatetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
 // create an order
 exports.createOrder = (req, res) => {
+
+    // validate that request has all required fields 
+    if( !req.body.customer_id|| !req.body.order_status_code ||
+        !req.body.total_order_price) {
+
+        res.status(400).send({ message: "Missing form data" });
+        return;
+    }
+
     // create Order
     const order = new Order({
         customer_id: req.body.customer_id,

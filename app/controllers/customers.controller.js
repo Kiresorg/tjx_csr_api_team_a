@@ -10,6 +10,7 @@ const Order_Product = dB.order_products ;
 // create and save a Customer
 exports.create = (req, res) => {
     // create customer
+
     const customer = new Customer({
         first_name: req.body.first_name,
         middle_name: req.body.middle_name ? req.body.middle_name : null,
