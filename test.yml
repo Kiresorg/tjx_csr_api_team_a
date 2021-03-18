@@ -20,8 +20,89 @@ info:
 #  description: Operations available to regular developers
 
 paths:
+  /customers:
+    get: 
+      tags: 
+      - customers
+      summary: get all customers
+      description: gets all customers from the database
+      operationId: getAllCustomers
+      responses: 
+        200:
+          description: OK
+        400:
+         description: Bad Request
+    post:
+      tags: 
+        - customers
+      summary: creates a new customer
+      description: creates a customer and assigns an id
+      operationId: createCustomer
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad Request
+  /customers/{id}:
+    get:
+      tags: 
+      - customers
+      summary: gets a customer by ID
+      description: searches through the database and gets the customer matching the ID
+      operationId: getCustomer
+      parameters: 
+        - name: id
+          in: path
+          description: order ID
+          required: true
+          type: integer   
+          format: int64 
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad Request
+    put:
+      tags: 
+      - customers
+      summary: modify a customer
+      description: using a customerID, update a specific customer
+      operationId: modifyCustomer
+      parameters: 
+        - name: id
+          in: path
+          description: order ID
+          required: true
+          type: integer   
+          format: int64 
+      responses:
+        200:
+          description: OK
+        400: 
+          description: Bad Request
+    delete:
+      tags: 
+      - customers
+      summary: deletes a specific customer
+      description: using a customerID, deletes a specific customer
+      operationId: deleteSpecificCustomer
+      parameters: 
+        - name: id
+          in: path
+          description: order ID
+          required: true
+          type: integer   
+          format: int64 
+      responses:
+        200:
+          description: OK
+        400:
+          description: Bad Request
+
   /products: 
       get: 
+        tags:
+        - products
         summary: get all products
         description: "Get all products from database"
         operationId: getAllProducts
@@ -32,6 +113,8 @@ paths:
             description: 'server error'
   /products/{id}:
     get: 
+      tags:
+      - products
       summary: get specific product 
       description: "Get a specific product by the ID"
       operationId: getProduct
@@ -50,7 +133,9 @@ paths:
         500:
           description: 'server error'
   /products/{id}/{incrementOrDecrement}:
-    put: 
+    put:
+      tags:
+      - products
       summary: update specific product 
       description: "increment/decrement quantity given its id" 
       operationId: updateProduct
@@ -74,6 +159,8 @@ paths:
           description: 'server error'
   /orders:
     get:
+      tags:
+      - orders
       summary: get all orders
       description: "get all orders"
       operationId: getAllOrders
@@ -82,16 +169,11 @@ paths:
           description: OK
     
     post:
+      tags:
+      - orders
       summary: create new order
       description: "Create new order draft, is not an 'active' order yet"
       operationId: createNewOrder
-      parameters:
-        - name: id
-          in: path
-          description: order ID
-          required: true
-          type: integer
-          format: int64 
       responses:
         200:
           description: OK
@@ -99,6 +181,8 @@ paths:
           description: Bad Request
   /orders/{id}:
     get:
+      tags:
+      - orders
       summary: get specific order
       description: "Get an order based on a customer ID"
       operationId: getOrder
@@ -117,6 +201,8 @@ paths:
         404:
           description: Order not found
     put:
+      tags:
+      - orders
       summary: modify existing order
       description: using an order id, modifies an existing order
       operationId: modifyOrder
@@ -134,6 +220,8 @@ paths:
           description: Bad Request
           
     delete:
+      tags:
+      - orders
       summary: delete draft order (not allowed for active orders)
       description: checks an order for activeness, and deletes if not active
       operationId: deleteOrder
@@ -149,40 +237,7 @@ paths:
           description: OK
         400:
           description: Bad Request
-  /customers:
-    get: 
-      summary: get all customers
-      description: gets all customers from the database
-      operationId: getAllCustomers
-  /customers/{id}:
-    get:
-      summary: gets a customer by ID
-      description: searches through the database and gets the customer matching the ID
-      operationId: getCustomer
-      responses:
-        200:
-          description: OK
-        400:
-          description: Bad Request
-    put:
-      summary: modify a customer
-      description: using a customerID, update a specific customer
-      operationId: modifyCustomer
-      responses:
-        200:
-          description: OK
-        400: 
-          description: Bad Request
-    delete:
-      summary: deletes a specific customer
-      description: using a customerID, deletes a specific customer
-      operationId: deleteSpecificCustomer
-      responses:
-        200:
-          description: OK
-        400:
-          description: Bad Request
-
+  
 definitions:
   product:
     type: object
