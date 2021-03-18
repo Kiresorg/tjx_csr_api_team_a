@@ -1,8 +1,10 @@
 const dB = require("../models/index");
 const Customer = dB.customer;
+const Orders = dB.orders;
+const Order_Product = dB.order_products ; 
 const db = require("mysql2");
 const { USER } = require("../config/db.config");
-const { sequelize } = require("../models/index");
+const { sequelize, order_products, customer } = require("../models/index");
 
 // create and save a Customer
 exports.create = (req, res) => {
@@ -53,9 +55,17 @@ exports.findAll = (req, res) => {
 };
 
 
-// get Claim by id
+// get customer by id
 exports.findOne = (req, res) => {
-    Customer.findOne({ where: { id: req.params.id } })
+    const id = parseInt(req.params.id, 10);
+    if (Number.isNaN(id)) {
+        res.status(404).send({
+            message: "Invalid ID parameter."
+        });
+        return;
+    }
+
+    Customer.findByPk(id)
         .then(data => {
             if(!data)
                 res.status(404).send({ message: "Not found: Customer with id of " + id });
@@ -75,10 +85,15 @@ exports.update = (req, res) => {
             message: "Empty data for update"
         });
     }
-    const id=req.params.id ;
+    const id = parseInt(req.params.id, 10);
+    if (Number.isNaN(id)) {
+        res.status(404).send({
+            message: "Invalid ID parameter."
+        });
+        return;
+    }
     Customer.update(
         {
-        id: req.body.id,
         first_name: req.body.first_name,
         middle_name: req.body.middle_name ? req.body.middle_name : null,
         last_name: req.body.last_name,
@@ -119,8 +134,35 @@ exports.delete = (req, res) => {
             message: "Invalid ID parameter."
         });
     }
-    ;
-    return sequelize.query(`DELETE FROM customers WHERE id=${id}`)
+    //return sequelize.query(`DELETE FROM customers WHERE id=${id}`)
+    Orders.findAll({
+        //attributes: ['customer_id'], 
+        where:{customer_id : id}
+    })
+    .then((data)=>{
+        orderId =(data['0'].id);
+        order_products.destroy({where : {order_id :orderId}}
+            .catch(err => {
+                res.status(500).send({
+                    message: `Error with deleting Order Products by customer of ${id}` + err
+                });
+            }));
+    }).catch(err => {
+        res.status(500).send({
+            message: "Error with deleting order_product."
+        });
+    });
+    Orders.destroy({
+        where : {customer_id : id}
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: `Error with deleting Orders by customer of ${id}` + err
+        });
+    });
+    Customer.destroy({
+        where: { id: id }
+    })
         .then(data => {
             if (!data) {
                 res.status(404).send({
@@ -134,7 +176,7 @@ exports.delete = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error with deleting Customer: " + err
+                message: "Error with deleting Customer." + err
             });
         });
 };
