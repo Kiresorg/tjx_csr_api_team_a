@@ -1,5 +1,6 @@
 const http = require('http');
 const express = require('express');
+const passport = require('passport');
 
 
 const app = express();
@@ -18,12 +19,15 @@ require("./app/routers/customers.route")(app);
 require("./app/routers/orders.route")(app);
 require("./app/routers/order_products.route")(app);
 require("./app/routers/products.route")(app);
+require("./app/routers/auth.route")(app);
 
 
 // default URL to API
 app.use('/', function(req, res) {
     res.send('tjx_full_stack works :-)');
 });
+
+
 
 const db = require("./app/models");
 db.sequelize.sync();

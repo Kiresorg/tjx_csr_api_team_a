@@ -1,5 +1,5 @@
 ###
-GET http://localhost:3000/api/products/7
+GET http://localhost:3000/api/products/
 
 ###
 PUT http://localhost:3000/api/products/7
