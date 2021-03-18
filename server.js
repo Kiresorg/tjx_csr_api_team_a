@@ -1,9 +1,12 @@
 const http = require('http');
 const express = require('express');
+const swaggerUi = require('swagger-ui-express'),
+    swaggerDocument = require('./swagger-api.json');
 
 
 const app = express();
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.use((req, res, next) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
