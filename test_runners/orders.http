@@ -33,3 +33,7 @@ content-type: application/json
 ### Delete an order by ID
 DELETE http://localhost:3000/api/orders/5 HTTP/1.1
 content-type: application/json
+
+### Get all orders by Customer ID
+GET http://localhost:3000/api/orders/customers/4 HTTP/1.1
+content-type: application/json

@@ -23,5 +23,8 @@ module.exports = app => {
     // Delete an order
     router.delete('/:id', controller.deleteOrderById);
 
+    // Additional Endpoint : GET on api/orders/customers/:id
+    router.get('/customers/:id', controller.findByCustomerId);
+
     app.use("/api/orders", router);
 };

@@ -1,5 +1,5 @@
 const db = require("../models");
-const { sequelize } = require("../models");
+const { sequelize, orders } = require("../models");
 const Order = db.orders;
 const Order_Product = db.order_products;
 
@@ -7,7 +7,6 @@ const mySQLdatetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
 // create an order
 exports.createOrder = (req, res) => {
-
     // create Order
     const order = new Order({
         customer_id: req.body.customer_id,
@@ -17,8 +16,6 @@ exports.createOrder = (req, res) => {
         notes: req.body.notes ? req.body.notes : '',
     });
 
-
-    // save Order to dB
     order
         .save(order)
         .then(data => {
@@ -34,13 +31,7 @@ exports.createOrder = (req, res) => {
 
 // get all orders
 exports.findAll = (req, res) => {
-
-    // Testing
-    // res.send("reached get all orders");
-
-    //const notes = req.query.notes;
-    //var condition = notes ? { notes: { $regex: new RegExp(notes), $options: "i" }} : {}
-    Order.findAll(/*condition*/)
+    Order.findAll()
         .then(data => {
             res.send(data);
         })
@@ -55,14 +46,12 @@ exports.findAll = (req, res) => {
 // Delete an order from ID
 exports.deleteOrderById = (req, res) => {
     const id = parseInt(req.params.id, 10);
-    if(Number.isNaN(id)) 
-    {
+    if (Number.isNaN(id)) {
         res.status(404).send({
             message: "Invalid ID parameter."
         });
     }
-    
-    //sequelize.query (`DELETE FROM order_products WHERE order_id = ${id}`);
+
     Order_Product.destroy({
         where: { order_id: id }
     }).catch(err => {
@@ -93,14 +82,19 @@ exports.deleteOrderById = (req, res) => {
 
 // Get one order from ID
 exports.findById = (req, res) => {
-    const id = req.params.id;
-    //res.send("reached get order by id");
+    const id = parseInt(req.params.id, 10);
+    if (Number.isNaN(id)) {
+        res.status(404).send({
+            message: "Invalid ID parameter."
+        });
+        return;
+    }
 
     Order.findByPk(id)
         .then(data => {
             if (!data)
                 res.status(404).send({ message: "Not found: Order with id of " + id });
-            else 
+            else
                 res.send(data);
         })
         .catch(err => {
@@ -111,10 +105,38 @@ exports.findById = (req, res) => {
 
 };
 
+exports.findByCustomerId = (req, res) => {
+    const id = parseInt(req.params.id, 10);
+    if (Number.isNaN(id)) {
+        res.status(404).send({
+            message: "Invalid ID parameter."
+        });
+        return;
+    }
+
+    Order.findAll({
+        where: { customer_id: id }
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Error while retreving Orders"
+            });
+        });
+}
+
 // Edit an order from ID
 exports.editOrderById = (req, res) => {
-    //res.send('reached update order by id');
-    const id = req.params.id;
+    const id = parseInt(req.params.id, 10);
+    if (Number.isNaN(id)) {
+        res.status(404).send({
+            message: "Invalid ID parameter."
+        });
+        return;
+    }
 
     Order.update(
         {
@@ -131,32 +153,11 @@ exports.editOrderById = (req, res) => {
             if (!data)
                 res.status(404).send({ message: "Not found: Order with id of " + id });
             else
-                res.send({message:"Order updated successfully."});
+                res.send({ message: "Order updated successfully." });
         })
         .catch(err => {
             res
                 .status(500)
                 .send({ message: "Error updating Order with id of " + id });
         })
-    /*
-    if (!req.body) {
-        return res.status(400).send({
-            message: "Empty data for update"
-        });
-    }
-    const id = req.params.id;
-    Order.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
-        .then(data => {
-            if (!data) {
-                res.status(404).send({
-                    message: `Unable to update Order with id of ${id}.`
-                });
-            } else res.send({ message: "Order updated successfully." });
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error while trying to update Order with id of " + id
-            });
-        });
-        */
 };
