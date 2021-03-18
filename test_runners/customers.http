@@ -3,7 +3,7 @@ GET https://csr-api-a.azurewebsites.net/api/customers HTTP/1.1
 content-type: application/json
 
 ### Get one customer by ID
-GET http://localhost:3000/api/customers/3 HTTP/1.1
+GET http://localhost:3000/api/customers/4 HTTP/1.1
 content-type: application/json
 
 ### update customer by ID
@@ -25,7 +25,7 @@ content-type:application/json
 }
 
 ### delete customer by id 
-DELETE  http://localhost:3000/api/customers/3 HTTP/1.1
+DELETE  http://localhost:3000/api/customers/4 HTTP/1.1
 content-type:application/json
 
 ### create new customer will return error
