@@ -3,25 +3,33 @@ GET http://localhost:3000/api/orders HTTP/1.1
 content-type: application/json
 
 ### Get one order by ID
-GET http://localhost:3000/api/orders/:id HTTP/1.1
+GET http://localhost:3000/api/orders/1 HTTP/1.1
 content-type: application/json
 
 ### Edit an order by ID
-PUT http://localhost:3000/api/orders/:id HTTP/1.1
-content-type: application/json
-
-### Create an order
-POST http://localhost:3000/api/orders/:id HTTP/1.1
-content-type: application/json
-
-### Delete an order by ID
-DELETE http://localhost:3000/api/orders/:id HTTP/1.1
+PUT http://localhost:3000/api/orders/1 HTTP/1.1
 content-type: application/json
 
 {
-    "customer_id": "Number",
-    "order_status_code": "String",
-    "datetime_order_placed": "Date",
-    "total_order_price": "Number",
-    "order_notes": "String"
+    "customer_id": "2",
+    "order_status_code": "300",
+    "datetime_order_placed": "2021-03-17T15:18:06.000Z",
+    "total_order_price": "31.98",
+    "notes": "New note"
 }
+
+### Create an order
+POST http://localhost:3000/api/orders/ HTTP/1.1
+content-type: application/json
+
+{
+    "customer_id": "2",
+    "order_status_code": "100",
+    "datetime_order_placed": "2021-03-17T15:18:06.000Z",
+    "total_order_price": "99.99",
+    "notes": "Hello there"
+}
+
+### Delete an order by ID
+DELETE http://localhost:3000/api/orders/5 HTTP/1.1
+content-type: application/json

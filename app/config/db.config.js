@@ -1,4 +1,4 @@
- // Configuration for REMOTE database
+// Configuration for REMOTE database
  module.exports = {
   HOST: "csr-db-team-a.mysql.database.azure.com",
   USER: "teamaadmin@csr-db-team-a",

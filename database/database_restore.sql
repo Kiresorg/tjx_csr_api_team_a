@@ -102,11 +102,11 @@ CREATE TABLE IF NOT EXISTS `ordersdb`.`orders` (
 -- Table `ordersdb`.`order_products`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `ordersdb`.`order_products` (
-  `order_products_id` INT NOT NULL AUTO_INCREMENT,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `order_id` INT NOT NULL,
   `product_id` INT NOT NULL,
   `product_quantity` INT NOT NULL CHECK (`product_quantity` >= 0),
-  PRIMARY KEY (`order_products_id`),
+  PRIMARY KEY (`id`),
   FOREIGN KEY (`order_id`) REFERENCES orders(`id`),
   FOREIGN KEY (`product_id`) REFERENCES products(`id`));
 
