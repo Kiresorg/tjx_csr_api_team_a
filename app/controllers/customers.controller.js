@@ -2,9 +2,10 @@ const dB = require("../models/index");
 const Customer = dB.customer;
 const Orders = dB.orders;
 const Order_Product = dB.order_products ; 
-const db = require("mysql2");
-const { USER } = require("../config/db.config");
-const { sequelize, order_products, customer } = require("../models/index");
+// const db = require("mysql2");
+// const { USER } = require("../config/db.config");
+// const { sequelize, order_products, customer } = require("../models/index");
+// const { cast } = require("sequelize/types");
 
 // create and save a Customer
 exports.create = (req, res) => {
@@ -127,56 +128,63 @@ exports.update = (req, res) => {
 
 // delete Claim by id
 exports.delete = (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    if(Number.isNaN(id)) 
-    {
-        res.status(404).send({
-            message: "Invalid ID parameter."
-        });
-    }
-    //return sequelize.query(`DELETE FROM customers WHERE id=${id}`)
-    Orders.findAll({
-        //attributes: ['customer_id'], 
-        where:{customer_id : id}
-    })
-    .then((data)=>{
-        orderId =(data['0'].id);
-        order_products.destroy({where : {order_id :orderId}}
-            .catch(err => {
-                res.status(500).send({
-                    message: `Error with deleting Order Products by customer of ${id}` + err
-                });
-            }));
-    }).catch(err => {
-        res.status(500).send({
-            message: "Error with deleting order_product."
-        });
-    });
-    Orders.destroy({
-        where : {customer_id : id}
-    })
-    .catch(err => {
-        res.status(500).send({
-            message: `Error with deleting Orders by customer of ${id}` + err
-        });
-    });
-    Customer.destroy({
-        where: { id: id }
-    })
-        .then(data => {
-            if (!data) {
-                res.status(404).send({
-                    message: `Unable to delete Customer with id of ${id}.`
-                });
-            } else {
-                res.send({
-                    message: "Customer deleted successfully."
-                });
-            }
-        })
-        .catch(err => {
-            res.status(500).send({
-                message: "Error with deleting Customer." + err
-            });
-        });
+    res.send("Delete in progress");
+    // const id = parseInt(req.params.id, 10);
+    // if(Number.isNaN(id)) 
+    // {
+    //     res.status(404).send({
+    //         message: "Invalid ID parameter."
+    //     });
+    // }
+    // //return sequelize.query(`DELETE FROM customers WHERE id=${id}`)
+    // Orders.findAll({
+    //     //attributes: ['customer_id'], 
+    //     where:{customer_id : id}
+    // })
+    // .then((data)=>{
+    //     for(var i=0; i<data.length; i++){
+    //         orderId =data[i].id;
+    //         //console.log(orderId);
+    //         Order_Product.destroy({where : {order_id :orderId}})
+    //             .catch(err => {
+    //                 res.status(500).send({
+    //                     message: `Error with deleting Order Products by customer of ${id} and order_product of ${orderId}` + err
+    //                 })
+    //             });
+    //     }
+    // }).catch(err => {
+    //     res.status(500).send({
+    //         message: "Error with deleting order_product."
+    //     });
+    // });
+    // Orders.destroy({
+    //     where : {customer_id : id}
+    // })
+    // .then(data =>{
+    //     console.log(data);
+    // })
+    // .catch(err => {
+    //     res.status(500).send({
+    //         message: `Error with deleting Orders by customer of ${id}` + err
+    //     });
+    // });
+    // Customer.destroy({
+    //     where: { id: id }
+    // })
+    //     .then(data => {
+    //         if (!data) {
+    //             res.status(404).send({
+    //                 message: `Unable to delete Customer with id of ${id}.`
+    //             });
+    //         } else {
+    //             res.send({
+    //                 message: "Customer deleted successfully."
+    //             });
+    //         }
+    //     })
+    //     .catch(err => {
+    //         res.status(500).send({
+    //             message: "Error with deleting Customer." + err
+    //         });
+    //     });
 };
