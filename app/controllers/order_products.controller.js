@@ -4,6 +4,14 @@ const Order_Product = db.order_products;
 const mySQLdatetime = new Date().toISOString().slice(0, 19).replace('T', ' ');
 
 exports.create = (req, res) => {
+     
+    // validate that request has all required fields 
+     if( !req.body.order_id|| !req.body.product_id ||
+        !req.body.product_quantity) {
+
+        res.status(400).send({ message: "Missing form data" });
+        return;
+    }
 
     // create order_product
     const order_product = new Order_Product({
