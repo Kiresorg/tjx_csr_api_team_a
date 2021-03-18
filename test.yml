@@ -34,13 +34,13 @@ paths:
     get: 
       summary: get specific product 
       description: "Get a specific product by the ID"
-      operationID: getProduct
+      operationId: getProduct
       parameters: 
         - name: id
           in: path
           description: order ID
           required: true
-          type: integer
+          type: integer   
           format: int64 
       responses: 
         200:
@@ -49,10 +49,11 @@ paths:
           description: Bad Request
         500:
           description: 'server error'
+  /products/{id}/{incrementOrDecrement}:
     put: 
       summary: update specific product 
       description: "increment/decrement quantity given its id" 
-      operationsId: updateProduct
+      operationId: updateProduct
       parameters: 
         - name: id
           in: path
@@ -61,12 +62,14 @@ paths:
           type: integer
           format: int64 
         - name: incrementOrDecrement
+          in: path
           description: 'true to increment, false to decrement'
+          type: boolean
           format: boolean 
           required: true
       responses: 
         200:
-          decription: OK
+          description: OK
         500: 
           description: 'server error'
   /orders:
@@ -83,7 +86,7 @@ paths:
       description: "Create new order draft, is not an 'active' order yet"
       operationId: createNewOrder
       parameters:
-          id: string
+        - name: id
           in: path
           description: order ID
           required: true
@@ -154,8 +157,7 @@ paths:
   /customers/{id}:
     get:
       summary: gets a customer by ID
-      description: searches through the database
-      and gets the customer matching the ID
+      description: searches through the database and gets the customer matching the ID
       operationId: getCustomer
       responses:
         200:
@@ -164,8 +166,7 @@ paths:
           description: Bad Request
     put:
       summary: modify a customer
-      description: using a customerID, update a 
-      specific customer
+      description: using a customerID, update a specific customer
       operationId: modifyCustomer
       responses:
         200:
@@ -174,8 +175,7 @@ paths:
           description: Bad Request
     delete:
       summary: deletes a specific customer
-      description: using a customerID, deletes a
-      specific customer
+      description: using a customerID, deletes a specific customer
       operationId: deleteSpecificCustomer
       responses:
         200:
@@ -202,7 +202,7 @@ definitions:
         type: string
         example: 012345
       cost:
-        type: double
+        type: number
         example: 0.99
   customer:
     required:
@@ -229,7 +229,7 @@ definitions:
         type: string
         example: 000001
       totalcost:
-        type: double
+        type: number
         example: 19.99
       shipping address:
         type: string
