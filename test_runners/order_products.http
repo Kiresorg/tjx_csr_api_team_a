@@ -1,0 +1,39 @@
+### Get all order_products
+GET http://localhost:3000/api/order_products HTTP/1.1
+content-type: application/json
+
+### Get one order_product by ID
+GET http://localhost:3000/api/order_products/1 HTTP/1.1
+content-type: application/json
+
+### Edit an order_product by ID
+PUT http://localhost:3000/api/order_products/1 HTTP/1.1
+content-type: application/json
+
+{
+    "order_id": "2",
+    "product_id": "3",
+    "product_quantity": "2"
+}
+
+### Create an order_product
+POST http://localhost:3000/api/order_products/ HTTP/1.1
+content-type: application/json
+
+{
+    "order_id": "3",
+    "product_id": "5",
+    "product_quantity": "23"
+}
+
+### Delete an order_product by ID
+DELETE http://localhost:3000/api/order_products/6 HTTP/1.1
+content-type: application/json
+
+### Find all order_products by order_id
+GET http://localhost:3000/api/order_products/orders/2 HTTP/1.1
+content-type: application/json
+
+### Delete order_products by order_id
+DELETE http://localhost:3000/api/order_products/orders/2 HTTP/1.1
+content-type: application/json

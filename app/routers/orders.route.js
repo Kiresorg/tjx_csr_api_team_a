@@ -5,15 +5,15 @@ module.exports = app => {
 
     // Endpoint: GET on api/orders/ 
     // Get all orders
-    router.get("/", controller.getAll);
+    router.get("/", controller.findAll);
 
     // Endpoint: GET on api/orders/:id 
     // Get one order
-    router.get('/:id', controller.getOne);
+    router.get('/:id', controller.findById);
 
     // Endpoint: PUT on api/orders/:id
     // Edit an order
-    router.put('/:id', controller.editOrder)
+    router.put('/:id', controller.editOrderById)
 
     // Endpoint: POST on api/orders
     // Create an order
@@ -21,7 +21,7 @@ module.exports = app => {
 
     // Endpoint: DELETE on api/orders/:id
     // Delete an order
-    router.delete('/:id', controller.deleteOrder);
+    router.delete('/:id', controller.deleteOrderById);
 
     app.use("/api/orders", router);
 };

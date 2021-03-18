@@ -1,5 +1,5 @@
 ### Get All Customers
-GET http://localhost:3000/api/customers HTTP/1.1
+GET https://csr-api-a.azurewebsites.net/api/customers HTTP/1.1
 content-type: application/json
 
 ### Get one customer by ID
