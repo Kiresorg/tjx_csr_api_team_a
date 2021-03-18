@@ -128,63 +128,57 @@ exports.update = (req, res) => {
 
 // delete Claim by id
 exports.delete = (req, res) => {
-    res.send("Delete in progress");
-    // const id = parseInt(req.params.id, 10);
-    // if(Number.isNaN(id)) 
-    // {
-    //     res.status(404).send({
-    //         message: "Invalid ID parameter."
-    //     });
-    // }
-    // //return sequelize.query(`DELETE FROM customers WHERE id=${id}`)
-    // Orders.findAll({
-    //     //attributes: ['customer_id'], 
-    //     where:{customer_id : id}
-    // })
-    // .then((data)=>{
-    //     for(var i=0; i<data.length; i++){
-    //         orderId =data[i].id;
-    //         //console.log(orderId);
-    //         Order_Product.destroy({where : {order_id :orderId}})
-    //             .catch(err => {
-    //                 res.status(500).send({
-    //                     message: `Error with deleting Order Products by customer of ${id} and order_product of ${orderId}` + err
-    //                 })
-    //             });
-    //     }
-    // }).catch(err => {
-    //     res.status(500).send({
-    //         message: "Error with deleting order_product."
-    //     });
-    // });
-    // Orders.destroy({
-    //     where : {customer_id : id}
-    // })
-    // .then(data =>{
-    //     console.log(data);
-    // })
-    // .catch(err => {
-    //     res.status(500).send({
-    //         message: `Error with deleting Orders by customer of ${id}` + err
-    //     });
-    // });
-    // Customer.destroy({
-    //     where: { id: id }
-    // })
-    //     .then(data => {
-    //         if (!data) {
-    //             res.status(404).send({
-    //                 message: `Unable to delete Customer with id of ${id}.`
-    //             });
-    //         } else {
-    //             res.send({
-    //                 message: "Customer deleted successfully."
-    //             });
-    //         }
-    //     })
-    //     .catch(err => {
-    //         res.status(500).send({
-    //             message: "Error with deleting Customer." + err
-    //         });
-    //     });
+    const id = parseInt(req.params.id, 10);
+    if(Number.isNaN(id)) 
+    {
+        res.status(404).send({
+            message: "Invalid ID parameter."
+        });
+    }
+    Orders.findAll({
+        where:{customer_id : id}
+    })
+    .then((data)=>{
+        for(var i=0; i<data.length; i++){
+            orderId =data[i].id;
+            Order_Product.destroy({where : {order_id :orderId}})
+                .catch(err => {
+                    res.status(500).send({
+                        message: `Error with deleting Order Products by customer of ${id} and order_product of ${orderId}` + err
+                    });
+                });
+        }
+    }).catch(err => {
+        res.status(500).send({
+            message: "Error with deleting order_product."
+        });
+    });
+    Order_Product.sync({force: true});
+    Orders.destroy({
+        where : {customer_id : id}
+    })
+        .catch(err => {
+            res.status(500).send({
+                message: `Error with deleting Orders by customer of ${id}` + err
+            });
+        });
+    Customer.destroy({
+        where: { id: id }
+    })
+        .then(data => {
+            if (!data) {
+                res.status(404).send({
+                    message: `Unable to delete Customer with id of ${id}.`
+                });
+            } else {
+                res.send({
+                    message: "Customer deleted successfully."
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error with deleting Customer." + err
+            });
+        });
 };
