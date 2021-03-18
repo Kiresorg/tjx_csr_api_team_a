@@ -182,3 +182,29 @@ INSERT INTO users(first_name, last_name, username, about, email, password, last_
     'active',
     '2021-03-16 20:52:18',
     '2021-03-16 20:52:18');
+    
+DROP PROCEDURE IF EXISTS `UpdateOrder`;
+DELIMITER #
+
+CREATE PROCEDURE `UpdateOrder`
+(
+	IN id_input INT,
+	IN customer_id_input INT,
+    IN order_status_id_input INT,
+    IN datetime_order_placed_input DATETIME,
+	IN total_order_price_input DECIMAL(30, 2),
+	IN notes_input VARCHAR(255)
+)
+BEGIN
+
+	UPDATE orders 
+	SET orders.customer_id = customer_id_input,
+		orders.order_status_id = order_status_id_input,
+		orders.datetime_order_placed = datetime_order_placed_input,
+		orders.total_order_price = total_order_price_input,
+		orders.notes = notes_input
+	WHERE orders.id = id_input AND (orders.order_status_id = 100 OR orders.order_status_id = 200);
+    
+END#
+
+delimiter ;
