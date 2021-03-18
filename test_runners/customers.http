@@ -1,33 +1,49 @@
 ### Get All Customers
-GET https://csr-api-a.azurewebsites.net/api/customers HTTP/1.1
+GET http://localhost:3000/api/customers/ HTTP/1.1
 content-type: application/json
 
 ### Get one customer by ID
-GET http://localhost:3000/api/customers/:id HTTP/1.1
+GET http://localhost:3000/api/customers/3 HTTP/1.1
 content-type: application/json
 
 ### update customer by ID
-PUT http://localhost:3000/api/customers/:id HTTP/1.1
+PUT http://localhost:3000/api/customers/3 HTTP/1.1
 content-type:application/json
+
+{   
+  "first_name": "GoGo",
+  "middle_name": "Diego",
+  "last_name": "Gau",
+  "phone": "5552834837",
+  "email": "diego@email.com",
+  "notes": "Leave with Dora.",
+  "address_line1": "35 Explorer Road",
+  "address_line2": "8",
+  "city": "Phoenix",
+  "state": "AZ",
+  "zip": "85001"
+}
 
 ### delete customer by id 
-DELETE  http://localhost:3000/api/customers/:id HTTP/1.1
+DELETE  http://localhost:3000/api/customers/3 HTTP/1.1
 content-type:application/json
 
-### create new customer 
+### create new customer will return error
+### NULL : middle_name, notes, address_line2
 POST http://localhost:3000/api/customers HTTP/1.1
+content-type:application/json
 
 {
-    "first_name": "",
+    "first_name": "Abc",
     "middle_name": "",
-    "last_name": "",
-    "phone": "",
-    "email": "",
+    "last_name": "aaaa",
+    "phone": "000000000",
+    "email": "asd@comcast.net",
     "notes": "",
-    "address_line1": "",
+    "address_line1": "123 Main St",
     "address_line2": "",
-    "city": "",
-    "state": "",
-    "zip": "",
+    "city": "Boston",
+    "state": "MA",
+    "zip": "02215"
 }
 
