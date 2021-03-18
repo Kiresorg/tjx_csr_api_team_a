@@ -15,7 +15,6 @@ exports.create = (req, res) => {
         return;
     }
 
-    // create customer
     const customer = new Customer({
         first_name: req.body.first_name,
         middle_name: req.body.middle_name ? req.body.middle_name : null,
