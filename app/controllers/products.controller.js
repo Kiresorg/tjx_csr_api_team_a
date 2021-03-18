@@ -53,3 +53,7 @@ exports.update = (req, res) => {
         });
     });
 };
+
+exports.foo = (a, b) => {
+    return a + b;
+}

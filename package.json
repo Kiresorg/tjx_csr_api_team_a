@@ -2,7 +2,8 @@
     "name": "tjx_csr_api_team_b",
     "version": "1.0.0",
     "scripts": {
-        "start": "node server.js"
+        "start": "node server.js",
+        "test": "jest"
     },
     "dependencies": {
         "bcrypt-node": "^0.1.0",
@@ -10,6 +11,7 @@
         "express": "^4.17.1",
         "express-handlebars": "^5.2.1",
         "express-session": "^1.17.1",
+        "jest": "^26.6.3",
         "mysql": "^2.18.1",
         "mysql2": "^2.2.5",
         "passport": "^0.4.1",
