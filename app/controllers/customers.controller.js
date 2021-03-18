@@ -5,6 +5,16 @@ const db = require("mysql2");
 // create and save a Customer
 exports.create = (req, res) => {
     //res.send("reached create new customer")
+
+    // validate that request has all required fields 
+    if( !req.body.first_name || !req.body.last_name ||
+        !req.body.phone || !req.body.email || !req.body.address_line1 ||
+        !req.body.city || !req.body.state ||!req.body.zip ) {
+
+        res.status(400).send({ message: "Missing form data" });
+        return;
+    }
+
     // create customer
     const customer = new Customer({
         first_name: req.body.first_name,
