@@ -40,7 +40,8 @@ exports.createOrder = (req, res) => {
 
 // get all orders
 exports.findAll = (req, res) => {
-    Order.findAll()
+    sequelize.query
+    (`CALL GetAllProducts()`)
         .then(data => {
             res.send(data);
         })
