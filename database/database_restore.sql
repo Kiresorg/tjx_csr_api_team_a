@@ -199,11 +199,14 @@ BEGIN
 
 	UPDATE orders 
 	SET orders.customer_id = customer_id_input,
-		orders.order_status_id = order_status_id_input,
 		orders.datetime_order_placed = datetime_order_placed_input,
 		orders.total_order_price = total_order_price_input,
 		orders.notes = notes_input
 	WHERE orders.id = id_input AND (orders.order_status_id = 100 OR orders.order_status_id = 200);
+
+  UPDATE orders
+  SET orders.order_status_id = order_status_id_input
+  WHERE orders.id = id_input;
     
 END#
 
