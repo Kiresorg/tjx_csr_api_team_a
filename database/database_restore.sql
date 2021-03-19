@@ -184,14 +184,15 @@ INSERT INTO users(first_name, last_name, username, about, email, password, last_
     '2021-03-16 20:52:18');
     
 DROP PROCEDURE IF EXISTS `UpdateOrder`;
-DELIMITER #
+DROP PROCEDURE IF EXISTS `GetAllProducts`;
+DELIMITER ##
 
 CREATE PROCEDURE `UpdateOrder`
 (
 	IN id_input INT,
 	IN customer_id_input INT,
-    IN order_status_id_input INT,
-    IN datetime_order_placed_input DATETIME,
+	IN order_status_id_input INT,
+	IN datetime_order_placed_input DATETIME,
 	IN total_order_price_input DECIMAL(30, 2),
 	IN notes_input VARCHAR(255)
 )
@@ -208,6 +209,27 @@ BEGIN
   SET orders.order_status_id = order_status_id_input
   WHERE orders.id = id_input;
     
-END#
+END##
+
+DELIMITER ##
+CREATE PROCEDURE `GetAllProducts`()
+BEGIN
+	select
+
+	c.id as customer_id,
+	c.first_name,
+	c.last_name,
+	o.id as order_id,
+	o.datetime_order_placed,
+	o.total_order_price,
+	os.status
+
+	from customers c
+	inner join orders o
+	on o.customer_id = c.id
+	inner join order_statuses os
+	on os.id = o.order_status_id;
+
+END##
 
 delimiter ;
